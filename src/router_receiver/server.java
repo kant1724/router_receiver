@@ -34,7 +34,8 @@ public class server extends Thread {
                         System.out.println("[받은 내용: " + socketAddress.toString() + "] " + data);
                     }
                 } catch (Exception e) {
-                    System.out.println("[수신 종료]");
+                    e.printStackTrace();
+                	System.out.println("[수신 종료]");
                 }
             }
         };
