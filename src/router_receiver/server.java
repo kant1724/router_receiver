@@ -40,9 +40,5 @@ public class server extends Thread {
             }
         };
         thread.start();
-        try {
-        	Thread.sleep(10000);
-        } catch (Exception e) {}
-        datagramChannel.close();
 	}
 }
