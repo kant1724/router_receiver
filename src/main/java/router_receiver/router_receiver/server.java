@@ -6,16 +6,11 @@ import java.net.SocketAddress;
 import java.net.StandardProtocolFamily;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
-import java.nio.channels.SelectionKey;
-import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
-import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
-import java.util.Iterator;
 
 public class server extends Thread {
 	public static void main(String[] args) throws IOException {
-        DatagramChannel datagramChannel = DatagramChannel.open(StandardProtocolFamily.INET);
+        final DatagramChannel datagramChannel = DatagramChannel.open(StandardProtocolFamily.INET);
         datagramChannel.bind(new InetSocketAddress(10523));
  
         Thread thread = new Thread() {
