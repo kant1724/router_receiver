@@ -16,7 +16,7 @@ public class server extends Thread {
         Thread thread = new Thread() {
             @Override
             public void run() {
-                System.out.println("[���� ����]");
+                System.out.println("[waiting]");
  
                 try {
                     while (true) {
@@ -26,11 +26,11 @@ public class server extends Thread {
  
                         Charset charset = Charset.forName("UTF-8");
                         String data = charset.decode(byteBuffer).toString();
-                        System.out.println("[���� ����: " + socketAddress.toString() + "] " + data);
+                        System.out.println("[receive: " + socketAddress.toString() + "] " + data);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                	System.out.println("[���� ����]");
+                	System.out.println("[error]");
                 }
             }
         };

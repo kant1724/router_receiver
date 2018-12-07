@@ -11,19 +11,15 @@ public class client {
 	public static void main(String[] args) throws Exception {
         DatagramChannel datagramChannel = DatagramChannel.open(StandardProtocolFamily.INET);
  
-        System.out.println("[�߽� ����]");
- 
         for (int i = 1; i < 3; i++) {
-            String data = "�޽��� " + i;
+            String data = "hi_ " + i;
             Charset charset = Charset.forName("UTF-8");
             ByteBuffer byteBuffer = charset.encode(data);
  
             int byteCount = datagramChannel.send(byteBuffer, new InetSocketAddress("14.63.168.58", 10523));
  
-            System.out.println("[���� ����Ʈ ��] " + byteCount + " bytes");
+            System.out.println("[send byte] " + byteCount + " bytes");
         }
- 
-        System.out.println("[�߽� ����]");
  
         datagramChannel.close();
     }
