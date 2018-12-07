@@ -1,11 +1,14 @@
 package router_receiver.router_receiver;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import org.bson.Document;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+
 
 public class dao {
 	public void connect() {		
@@ -18,6 +21,5 @@ public class dao {
 	public static void main(String[] args) {
 		dao d = new dao();
 		d.connect();
-	}
-	
+	}	
 }
