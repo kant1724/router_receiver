@@ -17,16 +17,18 @@ public class server extends Thread {
             @Override
             public void run() {
                 System.out.println("[waiting]");
- 
+                dao d = new dao();
+                d.connect();
                 try {
                     while (true) {
                         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(100);
                         SocketAddress socketAddress = datagramChannel.receive(byteBuffer);
                         byteBuffer.flip();
- 
                         Charset charset = Charset.forName("UTF-8");
                         String data = charset.decode(byteBuffer).toString();
+                        d.insertRow(data);
                         System.out.println("[receive: " + socketAddress.toString() + "] " + data);
+                       
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
