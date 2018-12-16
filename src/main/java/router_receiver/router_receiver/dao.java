@@ -1,7 +1,6 @@
 package router_receiver.router_receiver;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.SimpleDateFormat;
 
 import org.bson.Document;
 
@@ -30,8 +29,12 @@ public class dao {
 	
 	public void insertRow(String ip, String log) {		
 		MongoCollection<Document> collection = database.getCollection("router_log");
+		SimpleDateFormat date = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat time = new SimpleDateFormat("HHmmss");
 		Document d1 = new Document();
 		d1.put("ip", ip);
+		d1.put("date", date);
+		d1.put("time", time);
 		d1.put("log", log);
 		collection.insertOne(d1);
 	}
