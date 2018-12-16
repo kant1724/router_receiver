@@ -1,6 +1,7 @@
 package router_receiver.router_receiver;
 
-import static com.mongodb.client.model.Filters.eq;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.bson.Document;
 
@@ -27,10 +28,14 @@ public class dao {
 		}
 	}
 	
-	public void insertRow(String value) {		
+	public void insertRow(String ip, String log) {		
 		MongoCollection<Document> collection = database.getCollection("router_log");
-		Document document = new Document("value", value);
-		collection.insertOne(document);
+		Document d1 = new Document("log", log);
+		Document d2 = new Document("ip", ip);
+		List<Document> d = new ArrayList<Document>();
+		d.add(d1);
+		d.add(d2);
+		collection.insertMany(d);
 	}
 	
 	public static void main(String[] args) {
