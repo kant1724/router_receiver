@@ -30,12 +30,10 @@ public class dao {
 	
 	public void insertRow(String ip, String log) {		
 		MongoCollection<Document> collection = database.getCollection("router_log");
-		Document d1 = new Document("log", log);
-		Document d2 = new Document("ip", ip);
-		List<Document> d = new ArrayList<Document>();
-		d.add(d1);
-		d.add(d2);
-		collection.insertMany(d);
+		Document d1 = new Document();
+		d1.put("ip", ip);
+		d1.put("log", log);
+		collection.insertOne(d1);
 	}
 	
 	public static void main(String[] args) {
