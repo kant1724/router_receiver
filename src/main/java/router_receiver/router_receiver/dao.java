@@ -1,6 +1,7 @@
 package router_receiver.router_receiver;
 
-import static com.mongodb.client.model.Filters.eq;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.bson.Document;
 
@@ -27,10 +28,20 @@ public class dao {
 		}
 	}
 	
-	public void insertRow(String value) {		
+	public void insertRow(String ip, String log) {		
 		MongoCollection<Document> collection = database.getCollection("router_log");
-		Document document = new Document("value", value);
-		collection.insertOne(document);
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
+        Date a = new Date();
+        Date b = new Date();
+        String date = sdf1.format(a);
+        String time = sdf2.format(b);
+		Document d1 = new Document();
+		d1.put("ip", ip);
+		d1.put("date", date);
+		d1.put("time", time);
+		d1.put("log", log);
+		collection.insertOne(d1);
 	}
 	
 	public static void main(String[] args) {

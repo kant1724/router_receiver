@@ -1,6 +1,7 @@
 package router_receiver.router_receiver;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.net.StandardProtocolFamily;
@@ -26,7 +27,7 @@ public class server extends Thread {
                         byteBuffer.flip();
                         Charset charset = Charset.forName("UTF-8");
                         String data = charset.decode(byteBuffer).toString();
-                        d.insertRow(data);
+                        d.insertRow(socketAddress.toString(), data);
                         System.out.println("[receive: " + socketAddress.toString() + "] " + data);
                        
                     }
