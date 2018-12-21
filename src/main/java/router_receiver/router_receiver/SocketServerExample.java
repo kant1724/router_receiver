@@ -34,21 +34,7 @@ public class SocketServerExample {
              }
          }
      };
-
-     Runnable client = new Runnable() {
-         public void run() {
-              try {
-                  new SocketClientExample().startClient();
-             } catch (IOException e) {
-                 e.printStackTrace();
-             } catch (InterruptedException e) {
-                 e.printStackTrace();
-             }
-         }
-     };
     new Thread(server).start();
-    new Thread(client, "client-A").start();
-    new Thread(client, "client-B").start();
  }
 
 
