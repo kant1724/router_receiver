@@ -39,7 +39,9 @@ public class dao {
 		Document d1 = new Document();
 		d1.put("ip", ip);
 		d1.put("date", date);
-		d1.put("time", time);
+		d1.put("hour", time.substring(0, 2));
+		d1.put("minute", time.substring(2, 4));
+		d1.put("seconds", time.substring(4, 6));
 		d1.put("log", log);
 		collection.insertOne(d1);
 	}
