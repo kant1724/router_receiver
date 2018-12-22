@@ -30,7 +30,7 @@ public class dao {
 	
 	public void insertRow(String ip, String log) {		
 		MongoCollection<Document> collection = database.getCollection("router_log");
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
+		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
         Date a = new Date();
         Date b = new Date();
