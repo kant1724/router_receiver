@@ -5,6 +5,8 @@ import java.net.StandardProtocolFamily;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class client {
 	 
@@ -12,7 +14,14 @@ public class client {
         DatagramChannel datagramChannel = DatagramChannel.open(StandardProtocolFamily.INET);
         
         while (true) {
-            String data = "log list";
+        	SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
+            Date a = new Date();
+            String time = sdf2.format(a);
+            int seconds = Integer.parseInt(time.substring(4));
+            String data = "ok";
+            if (seconds >= 40) {
+            	data = "not ok";
+            }
             Charset charset = Charset.forName("UTF-8");
             ByteBuffer byteBuffer = charset.encode(data);
  
