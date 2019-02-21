@@ -19,7 +19,6 @@ public class server extends Thread {
             public void run() {
                 System.out.println("[waiting]");
                 dao d = new dao();
-                d.connect();
                 try {
                     while (true) {
                         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(100);

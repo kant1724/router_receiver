@@ -1,53 +1,50 @@
 package router_receiver.router_receiver;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.bson.Document;
-
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
-import com.mongodb.client.MongoDatabase;
-
-
-public class dao {
-	MongoClient mongoClient;
-	MongoDatabase database;
-	public void connect() {		
-		mongoClient = MongoClients.create("mongodb://14.63.168.58:27017");
-		database = mongoClient.getDatabase("router_log");
-		MongoCollection<Document> collection = database.getCollection("router_log");
-		FindIterable<Document> doc = collection.find();
-		MongoCursor<Document> cursor = doc.iterator();
-		while (cursor.hasNext()) {
-			String res = cursor.next().toJson();
-			System.out.println(res);
-		}
+public class dao {	
+	Connection connection = null;
+	
+	public dao() {
+		try {
+			connection = DriverManager.getConnection("jdbc:mysql:주소:포트/DB명" , "username", "password");
+		} catch(Exception e) {}
 	}
 	
 	public void insertRow(String ip, String log) {		
-		MongoCollection<Document> collection = database.getCollection("router_log");
-		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
-        Date a = new Date();
-        Date b = new Date();
-        String date = sdf1.format(a);
-        String time = sdf2.format(b);
-		Document d1 = new Document();
-		d1.put("ip", ip);
-		d1.put("date", date);
-		d1.put("hour", time.substring(0, 2));
-		d1.put("minute", time.substring(2, 4));
-		d1.put("seconds", time.substring(4, 6));
-		d1.put("log", log);
-		collection.insertOne(d1);
-	}
-	
-	public static void main(String[] args) {
-		dao d = new dao();
-		d.connect();
-	}	
+		PreparedStatement psmt = null;
+	    try {
+	    	Class.forName("com.mysql.jdbc.Driver");            
+    		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("HHmmss");
+            Date a = new Date();
+            Date b = new Date();
+            String date = sdf1.format(a);
+            String time = sdf2.format(b);
+            StringBuffer sql = new StringBuffer(" INSERT INTO poll (col1, col2 ) VALUES (?, ?) ");
+            psmt = connection.prepareStatement(sql.toString());
+            psmt.setString(1, ip);
+            psmt.setString(2, date);
+            psmt.setString(3, time.substring(0, 2));
+            psmt.setString(4, time.substring(2, 4));
+            psmt.setString(5, time.substring(4, 6));
+            psmt.setString(6, log);
+            psmt.executeUpdate();
+            psmt.close();            
+        } catch (SQLException se1) {
+            se1.printStackTrace();            
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (psmt != null)
+                	psmt.close();
+            } catch (SQLException se2) {}            
+        }
+    }
 }
