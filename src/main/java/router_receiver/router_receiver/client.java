@@ -34,9 +34,9 @@ public class client {
             
             ByteBuffer byteBuffer = charset.encode(data);
  
-            int byteCount = datagramChannel.send(byteBuffer, new InetSocketAddress("14.63.168.58", 10523));
+            int byteCount = datagramChannel.send(byteBuffer, new InetSocketAddress("211.255.24.52", 10523));
  
-            //System.out.println("[send byte] " + byteCount + " bytes");
+            System.out.println("[send byte] " + byteCount + " bytes");
             Thread.sleep(1000);
         }
  
